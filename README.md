@@ -7,7 +7,7 @@
 ### 快速运行
 
 ```bash
-docker run -d --name chronocat-docker -e VNC_PASSWD=vncpasswd -p 5500:5500 -p 5900:5900 -p 6081:6081 -p 16530:16530 -v ${PWD}/config:/root/.chronocat/config yuukinya/chronocat-docker
+docker run -d --name chronocat-docker -e VNC_PASSWD=vncpasswd -p 5500:5500 -p 5900:5900 -p 6081:6081 -p 16530:16530 -v ${PWD}/config:/root/.chronocat/config nanashichi/chronocatdocker
 ```
 
 其中vncpasswd换成你的VNC密码
@@ -32,7 +32,7 @@ docker cp chronocat-docker:/root/.config/QQ ./data
 如果之前是docker run运行的，执行
 
 ```bash
-docker run -d --name chronocat-docker -e VNC_PASSWD=vncpasswd -p 5500:5500 -p 5900:5900 -p 6081:6081 -p 16530:16530 -v ${PWD}/config:/root/.chronocat/config -v ${PWD}/data/QQ:/root/.config/QQ yuukinya/chronocat-docker
+docker run -d --name chronocat-docker -e VNC_PASSWD=vncpasswd -p 5500:5500 -p 5900:5900 -p 6081:6081 -p 16530:16530 -v ${PWD}/config:/root/.chronocat/config -v ${PWD}/data/QQ:/root/.config/QQ nanashichi/chronocatdocker
 ```
 
 如果之前是docker-compose运行的，编辑docker-compose.yml，把volumes下两行的开头注释去掉，保存，再执行
@@ -70,13 +70,13 @@ docker exec chronocat-docker sh -c "x11vnc -storepasswd newpasswd /root/.vnc/pas
 2. 删除容器并删除镜像，下面是代码示例
 
    ```bash
-   docker rm -f chronocat-docker && docker rmi yuukinya/chronocat-docker
+   docker rm -f chronocat-docker && docker rmi nanashichi/chronocatdocker
    ```
 
 3. 重新pull最近镜像
 
    ```bash
-   docker pull yuukinya/chronocat-docker
+   docker pull nanashichi/chronocatdocker
    ```
 
 4. 按照前面的使用教程操作
@@ -92,6 +92,12 @@ docker exec chronocat-docker sh -c "x11vnc -storepasswd newpasswd /root/.vnc/pas
 - [x] 使用docker的environment来指定VNC密码
 
 ## 更新日志
+
+### 2024-03-13
+- 完全基于 https://github.com/yuuki-nya/chronocat-docker 修改
+- 更新 NTQQ 至 3.2.5
+- 更新 LiteLoaderNTQQ 至 1.0.3
+- 更新 chronocat 至 0.2.4
 
 ### 2023-10-19
 

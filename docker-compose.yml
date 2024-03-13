@@ -1,6 +1,6 @@
 services:
   chronocat-docker:
-    image: yuukinya/chronocat-docker
+    image: nanashichi/chronocatdocker
     tty: true
     container_name: chronocat-docker
     restart: always

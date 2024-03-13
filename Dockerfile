@@ -33,18 +33,19 @@ RUN cd opt/noVNC/utils && git clone https://github.com/novnc/websockify.git
 RUN cp /opt/noVNC/vnc.html /opt/noVNC/index.html     
 
 # 安装Linux QQ
-RUN curl -o /root/linuxqq_3.1.2-13107_amd64.deb https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_amd64.deb
-RUN dpkg -i /root/linuxqq_3.1.2-13107_amd64.deb && apt-get -f install -y && rm /root/linuxqq_3.1.2-13107_amd64.deb
+RUN curl -o /root/QQ_3.2.5_240305_amd64_01.deb https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.5_240305_amd64_01.deb
+RUN dpkg -i /root/QQ_3.2.5_240305_amd64_01.deb && apt-get -f install -y && rm /root/QQ_3.2.5_240305_amd64_01.deb
 
 # 安装LiteLoader
-RUN curl -L -o /tmp/LiteLoaderQQNT.zip https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/releases/download/0.5.3/LiteLoaderQQNT.zip \
-    && unzip /tmp/LiteLoaderQQNT.zip -d /opt/QQ/resources/app/ \
+RUN curl -L -o /tmp/LiteLoaderQQNT.zip https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/releases/download/1.0.3/LiteLoaderQQNT.zip \
+    && unzip /tmp/LiteLoaderQQNT.zip -d /root/LiteLoaderQQNT/ \
     && rm /tmp/LiteLoaderQQNT.zip
 # 修改/opt/QQ/resources/app/package.json文件
-RUN sed -i 's/"main": ".\/app_launcher\/index.js"/"main": ".\/LiteLoader"/' /opt/QQ/resources/app/package.json
+# RUN sed -i 's/"main": ".\/app_launcher\/index.js"/"main": ".\/LiteLoader"/' /opt/QQ/resources/app/package.json
+RUN sed -i '1i require(String.raw`/root/LiteLoaderQQNT`);' /opt/QQ/resources/app/app_launcher/index.js
 
 # 安装chronocat  
-RUN curl -L -o /tmp/chronocat-llqqnt.zip https://ghproxy.com/https://github.com/chrononeko/chronocat/releases/download/v0.0.54/chronocat-llqqnt-v0.0.54.zip \
+RUN curl -L -o /tmp/chronocat-llqqnt.zip https://github.com/chrononeko/chronocat/releases/download/v0.2.4/chronocat-llqqnt-v0.2.4.zip \
   && mkdir -p /root/LiteLoaderQQNT/plugins \
   && unzip /tmp/chronocat-llqqnt.zip -d /root/LiteLoaderQQNT/plugins/ \
   && rm /tmp/chronocat-llqqnt.zip
@@ -61,7 +62,7 @@ RUN echo "fluxbox &" >> ~/start.sh
 RUN echo "x11vnc -display :1 -noxrecord -noxfixes -noxdamage -forever -rfbauth ~/.vnc/passwd &" >> ~/start.sh
 RUN echo "nohup /opt/noVNC/utils/novnc_proxy --vnc localhost:5900 --listen 6081 --file-only &" >> ~/start.sh
 RUN echo "x11vnc -storepasswd \$VNC_PASSWD ~/.vnc/passwd" >> ~/start.sh
-RUN echo "su -c 'qq' root" >> ~/start.sh
+RUN echo "su -c 'qq --no-sandbox' root" >> ~/start.sh
 RUN chmod +x ~/start.sh
 
 # 配置supervisor
