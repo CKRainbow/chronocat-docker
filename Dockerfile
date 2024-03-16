@@ -50,6 +50,15 @@ RUN curl -L -o /tmp/chronocat-llqqnt.zip https://github.com/chrononeko/chronocat
   && unzip /tmp/chronocat-llqqnt.zip -d /root/LiteLoaderQQNT/plugins/ \
   && rm /tmp/chronocat-llqqnt.zip
 
+RUN curl -L -o /tmp/chronocat-llqqnt-api.zip https://github.com/chrononeko/chronocat/releases/download/v0.2.4/chronocat-llqqnt-engine-chronocat-api-v0.2.4.zip \
+  && mkdir -p /root/LiteLoaderQQNT/plugins \
+  && unzip /tmp/chronocat-llqqnt-api.zip -d /root/LiteLoaderQQNT/plugins/ \
+  && rm /tmp/chronocat-llqqnt-api.zip
+
+RUN curl -L -o /tmp/chronocat-llqqnt-event.zip https://github.com/chrononeko/chronocat/releases/download/v0.2.4/chronocat-llqqnt-engine-chronocat-event-v0.2.4.zip \
+  && unzip /tmp/chronocat-llqqnt-event.zip -d /root/LiteLoaderQQNT/plugins/ \
+  && rm /tmp/chronocat-llqqnt-event.zip
+
 # 创建必要的目录
 RUN mkdir -p ~/.vnc
 
